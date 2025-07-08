@@ -10,6 +10,7 @@ import (
 	"time"
 )
 
+// Hilfsfunktion: Prüft, ob ein String in einem Slice enthalten ist.
 func contains(slice []string, s string) bool {
 	for _, v := range slice {
 		if v == s {
@@ -19,6 +20,7 @@ func contains(slice []string, s string) bool {
 	return false
 }
 
+// Holt die Subnetz-Teile des aktiven Interfaces (z.B. ["192","168","8"])
 func getActiveSubnetParts() ([]string, error) {
 	ifaces, err := net.Interfaces()
 	if err != nil {
@@ -44,6 +46,7 @@ func getActiveSubnetParts() ([]string, error) {
 	return nil, fmt.Errorf("kein aktives interface mit ipv4 gefunden")
 }
 
+// Hauptfunktion: Scan durchführen
 func RunScan() {
 	fmt.Println("Starte Netzwerk-Discovery...")
 
@@ -68,8 +71,8 @@ func RunScan() {
 	// 1. Pingsweep
 	pingOnline := PingSweep(subnetParts)
 
-	// 2. Portscan
-	portscanResults := PortScanDiscovery(subnetParts)
+	// 2. Portscan (Discovery)
+	portscanResults := PortScanDiscovery(subnetParts) // map[ip][]int
 	var portOnline []string
 	for ip := range portscanResults {
 		portOnline = append(portOnline, ip)
@@ -89,20 +92,25 @@ func RunScan() {
 	}
 	hostnames := HostnameDiscovery(allIPs)
 
-	// 4. Banner Grabbing
+	// 4. Banner Grabbing (map[string]map[string]string)
 	banners := GrabBanners(portscanResults)
 
 	// 5. Geräte-Liste erstellen
 	var devices []models.Device
 	for _, ip := range allIPs {
+		deviceBanners := make(map[string]string)
+		if b, ok := banners[ip]; ok {
+			deviceBanners = b // b ist map[string]string!
+		}
 		dev := models.Device{
-			IP:       ip,
-			MAC:      "",
-			Vendor:   "",
-			Hostname: hostnames[ip],
-			Ports:    portscanResults[ip],
-			Banners:  banners[ip],
-			FoundBy:  []string{},
+			IP:         ip,
+			MAC:        "",
+			Vendor:     "",
+			Hostname:   hostnames[ip],
+			Ports:      portscanResults[ip],
+			Banners:    deviceBanners,
+			FoundBy:    []string{},
+			DeviceType: "",
 		}
 		if contains(pingOnline, ip) {
 			dev.FoundBy = append(dev.FoundBy, "ping")
@@ -110,19 +118,26 @@ func RunScan() {
 		if contains(portOnline, ip) {
 			dev.FoundBy = append(dev.FoundBy, "portscan")
 		}
+		dev.DeviceType = DetectDeviceType(DeviceInfo{
+			IP:       ip,
+			Hostname: hostnames[ip],
+			Banners:  deviceBanners,
+			MAC:      "",
+			Ports:    portscanResults[ip],
+			TTL:      0, // falls gebraucht
+		})
 		devices = append(devices, dev)
 	}
 
-	// 6. Saubere Ausgabe mit Gerätetyp
+	// 6. Ausgabe
 	fmt.Println("\nScan-Ergebnis:")
 	fmt.Printf("%-15s %-22s %-18s %-16s %-40s %-15s\n", "IP", "Hostname", "DeviceType", "Ports", "Banners", "FoundBy")
 	for _, d := range devices {
-		deviceType := GuessDeviceType(d.Banners, d.Hostname, d.Ports)
 		fmt.Printf("%-15s %-22s %-18s %-16v %-40v %-15v\n",
-			d.IP, d.Hostname, deviceType, d.Ports, d.Banners, d.FoundBy)
+			d.IP, d.Hostname, d.DeviceType, d.Ports, d.Banners, d.FoundBy)
 	}
 
-	// 7. Export als JSON – immer in logs/, mit Zeitstempel + latest.json
+	// 7. Export als JSON (immer in logs/, mit Zeitstempel + latest.json)
 	now := time.Now()
 	logsDir := "logs"
 	if _, err := os.Stat(logsDir); os.IsNotExist(err) {
@@ -138,5 +153,13 @@ func RunScan() {
 	} else {
 		fmt.Println("Report gespeichert:", reportPath)
 	}
+	// Immer das aktuellste JSON speichern
 	_ = ExportToJSON(devices, logsDir+"/latest.json")
+
+	// NEU: Auch ins Frontend kopieren, damit npm run dev es live anzeigen kann:
+	frontendLogs := "../web/public/logs"
+	if _, err := os.Stat(frontendLogs); os.IsNotExist(err) {
+		_ = os.MkdirAll(frontendLogs, 0755)
+	}
+	_ = ExportToJSON(devices, frontendLogs+"/latest.json")
 }

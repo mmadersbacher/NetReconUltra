@@ -49,8 +49,8 @@ func BannerGrab(ip string, port int) string {
 	return strings.TrimSpace(banner)
 }
 
-func GrabBanners(hosts map[string][]int) map[string]map[int]string {
-	results := make(map[string]map[int]string)
+func GrabBanners(hosts map[string][]int) map[string]map[string]string {
+	results := make(map[string]map[string]string)
 	var wg sync.WaitGroup
 	var mu sync.Mutex
 
@@ -63,9 +63,9 @@ func GrabBanners(hosts map[string][]int) map[string]map[int]string {
 				if banner != "" {
 					mu.Lock()
 					if results[ip] == nil {
-						results[ip] = make(map[int]string)
+						results[ip] = make(map[string]string)
 					}
-					results[ip][port] = banner
+					results[ip][fmt.Sprintf("%d", port)] = banner
 					mu.Unlock()
 					fmt.Printf("Banner auf %s:%d → %s\n", ip, port, banner)
 				}
