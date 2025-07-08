@@ -1,99 +1,73 @@
-# NetReconUltra
+ NetRecon Ultra
 
-[![Go Version](https://img.shields.io/badge/go-%3E=1.22-blue?logo=go)](https://golang.org)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
-[![License](https://img.shields.io/github/license/mmadersbacher/NetReconUltra)](LICENSE)
-[![Issues](https://img.shields.io/github/issues/mmadersbacher/NetReconUltra?color=blue)](https://github.com/mmadersbacher/NetReconUltra/issues)
-
-**NetReconUltra** ist ein hochperformanter, modularer Netzwerk-Scanner in Go.  
-Entwickelt für fortgeschrittene Netzwerkerkennung, Geräteidentifikation, Service-Fingerprinting und exaktes Reporting im Business- und Security-Kontext.
+**NetRecon Ultra** ist ein modular aufgebautes Netzwerk-Discovery- und Analyse-Tool für kleine bis mittlere Netzwerke, entwickelt in Go (Backend) und React (Frontend).  
+Das Tool wurde für praxisnahe, schnelle Netzwerkerkennung, Host- und Dienstidentifikation sowie professionelle Auswertung und Visualisierung konzipiert.
 
 ---
 
-## Features
+## Funktionen
 
-- Automatische Erkennung von aktivem Interface und Subnetz
-- Paralleler Ping- und Portscan mit minimaler Latenz
-- Service-Banner-Grabbing (HTTP, FTP, Drucker, uvm.)
-- Gerätetyp- und OS-Identifikation (Banner, Ports, Hostname, Fingerprinting)
-- Strukturierte JSON-Reports mit Zeitstempel und History/Delta-Support
-- Strikte Modularisierung: kein File >200 Zeilen, klar getrennte Komponenten
-- Keine sensiblen Daten im Repo: Logs und Reports bleiben ausschließlich lokal
+- Paralleler Netzwerk-Scan (Ping, Portscan, Banner, Hostname, Device-Typ-Erkennung)
+- JSON-Report mit Zeitstempel für jeden Scanlauf, sowie fortlaufende History
+- Export der Scan-Ergebnisse in strukturierte Logs zur weiteren Auswertung
+- React-basiertes Web-Frontend für interaktive Geräteübersicht und Netzwerkgraph
+- Erweiterbar um OS-Fingerprinting, MAC/Vendor-Erkennung, Web-API, IPv6-Unterstützung
 
 ---
 
-## Quickstart
+## Verzeichnisstruktur
 
-```sh
-git clone https://github.com/mmadersbacher/NetReconUltra.git
-cd NetReconUltra
-go mod tidy
+.
+├── cmd/ # Einstiegspunkt für CLI (main.go)
+├── core/ # Hauptlogik für Scan, Discovery, Banner, OS-Detection etc.
+├── data/ # Zusatzdaten wie OUI-Datenbank für MAC/Vendor
+├── logs/ # Alle Scan-Reports im JSON-Format (inkl. latest.json)
+├── models/ # Datentypen für Devices und Reports
+├── utils/ # Hilfsfunktionen (Logging, Netzwerktools, OUI-Parsing)
+├── web/ # React-Frontend: Dashboard, Visualisierung, Geräteansicht
+├── go.mod, go.sum # Go-Abhängigkeiten
+├── LICENSE
+└── README.md
 
-# Build (optional)
-go build -o netreconultra ./cmd
 
-# Direkt ausführen (automatische Subnetzerkennung)
-sudo go run ./cmd scan
+---
 
-# Manuelles Interface/Subnetz
-sudo go run ./cmd scan wlan0 192.168.8.0
+## Installation & Nutzung
 
-Reports werden automatisch in logs/ mit Zeitstempel exportiert.
-Der aktuellste Report ist immer unter logs/latest.json verfügbar.
-Beispielausgabe
+### 1. Backend (Go)
 
-Starte Netzwerk-Discovery...
-Verwende Subnetz: 192.168.8.0/24
-Host online (Ping): 192.168.8.133
-Scan-Ergebnis:
-IP              Hostname        DeviceType     Ports          Banners                   FoundBy
-192.168.8.133   HPC38E23        Drucker        [80 443 8080]  {80:HTTP/1.1 ...}         [ping portscan]
-192.168.8.123   DESKTOP-G2NCQDT Windows PC     [139 445]      {}                        [ping portscan]
-...
-Report gespeichert: logs/scan_2025-07-07_23-31-47.json
+```bash
+cd cmd
+go run main.go
 
-Ordnerstruktur
+    Das Backend erkennt das lokale Subnetz, führt Discovery & Scans durch und speichert Reports in /logs.
 
-NetReconUltra/
-├── cmd/
-│   └── main.go
-├── core/
-│   ├── bannergrab.go
-│   ├── history.go
-│   ├── hostdiscovery.go
-│   ├── osdetect.go
-│   ├── pingsweep.go
-│   ├── portscan.go
-│   ├── ports.go
-│   ├── report.go
-│   └── scanner.go
-├── data/
-│   └── oui.txt
-├── logs/
-│   └── .gitkeep
-├── models/
-│   └── types.go
-├── utils/
-│   ├── export.go
-│   ├── log.go
-│   └── network.go
-├── README.md
-├── .gitignore
-├── go.mod
-├── go.sum
+2. Web-Frontend (React)
 
-Reporting, Logs und Datenschutz
+cd web
+npm install
+npm start
 
-    Logs und Reports werden ausschließlich lokal im Verzeichnis logs/ gespeichert.
+    Das Frontend ist standardmäßig auf http://localhost:3000 erreichbar.
 
-    Der Ordner logs/ ist nicht Teil des GitHub-Repos (siehe .gitignore).
+    Hinweis:
+    Für die Anzeige von Scan-Ergebnissen muss eine Datei latest.json im Verzeichnis web/logs/ liegen.
+    Diese Datei kann aus einem beliebigen Scan aus /logs/ kopiert werden.
 
-    Keine gescannten Daten oder privaten Netzwerkinfos verlassen den Rechner.
+cp ../logs/scan_YYYY-MM-DD_HH-MM-SS.json logs/latest.json
+
+Hinweise
+
+    Das Frontend ist derzeit nicht direkt mit dem Backend verbunden (kein Live-Scan-Trigger über das Web-UI).
+
+    Die Codebasis ist modular ausgelegt und ermöglicht die Erweiterung um neue Funktionen (z. B. erweiterte OS-Erkennung, ARP/MAC-Analyse, Web-API).
+
+    Reports werden standardmäßig in /logs/ abgelegt und können für langfristige Auswertungen genutzt werden.
 
 Lizenz
 
-MIT – siehe LICENSE.
-Kontakt / Autor
+Dieses Projekt steht unter der MIT-Lizenz.
+Kontakt
 
-Mario Madersbacher
-GitHub Profil
+Fragen oder Interesse an einer technischen Zusammenarbeit?
+Kontakt: mario.madersbacher.2008@gmail.com
