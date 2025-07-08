@@ -36,9 +36,8 @@ Keine halbfertigen Scripts, sondern ein solides Werkzeug – modular, nachvollzi
 
 ---
 
-## Projektstruktur
+Projektstruktur
 
-```text
 .
 ├── cmd/        # CLI-Startpunkt (main.go)
 ├── core/       # Scan-/Analyse-Logik (Go, modular)
@@ -54,6 +53,8 @@ Keine halbfertigen Scripts, sondern ein solides Werkzeug – modular, nachvollzi
 Installation & Betrieb
 Backend (Go)
 
+Schritt 1: Backend starten
+
 cd cmd
 go run main.go
 
@@ -67,6 +68,8 @@ go run main.go
 
 Frontend (React)
 
+Schritt 2: Frontend initialisieren & starten
+
 cd web
 npm install
 npm start
@@ -77,29 +80,35 @@ npm start
 
 Kopplung Scan-Log & Web-UI
 
-Damit das Frontend die Scan-Daten anzeigen kann, muss der Report als
-logs/latest.json im Web-Verzeichnis liegen.
+Schritt 3: Aktuellen Scan-Report ins Frontend kopieren
 
 cp ../logs/scan_YYYY-MM-DD_HH-MM-SS.json web/logs/latest.json
 
+    Das Frontend liest den Report aus web/logs/latest.json
+
+    Ohne diesen Schritt werden keine Scan-Daten angezeigt
+
 Workflow
 
-    Netzwerkscan: Backend starten (go run main.go im cmd/-Verzeichnis)
+    Netzwerkscan:
+    Backend starten (go run main.go im cmd/-Verzeichnis)
 
-    Report auswählen: Gewünschten Report aus /logs/ kopieren
+    Report auswählen:
+    Gewünschten Report im /logs/-Verzeichnis auswählen
 
-    Report verlinken:
-    cp logs/scan_TIMESTAMP.json web/logs/latest.json
+    Report kopieren:
+    Kopiere den gewünschten Report nach web/logs/latest.json
 
     Frontend starten:
-    npm start im web/-Verzeichnis
+    Im web/-Verzeichnis mit npm start das Dashboard öffnen
 
-    Auswertung: Scan im Browser analysieren, filtern, visualisieren
+    Analyse:
+    Scan im Browser auswerten, filtern, visualisieren
 
 Hinweise & Erweiterungen
 
-    Die Kopplung Backend ↔ Frontend ist aktuell nicht automatisiert (kein Live-Scan/Trigger im Web-UI)
+    Die Kopplung Backend ↔ Frontend ist nicht automatisiert (kein Live-Scan/Trigger im Web-UI)
 
-    Das Projekt ist modular: leicht erweiterbar um Features wie OS-Fingerprinting, ARP/MAC, Web-API, Echtzeit-Visualisierung etc.
+    Das Projekt ist modular: schnell erweiterbar um Features wie OS-Fingerprinting, ARP/MAC, Web-API, Echtzeit-Visualisierung usw.
 
-    Reports werden als History aufbewahrt, für langfristige Netzwerk-Analysen
+    Reports werden historisiert: Alle Scans bleiben als History erhalten – für langfristige Analysen
