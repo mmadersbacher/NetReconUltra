@@ -1,74 +1,69 @@
 # NetRecon Ultra
 
-NetRecon Ultra ist ein eigenständig entwickeltes Netzwerk-Discovery- und Analyse-Tool für kleine bis mittlere Netzwerke.  
-Das Projekt kombiniert ein leistungsstarkes Go-Backend für parallele Netzwerkerkennung mit einem modernen React-Frontend für die Auswertung und Visualisierung der Scanergebnisse.
+NetRecon Ultra ist ein eigenständiges, professionelles Netzwerk-Discovery- und Analyse-Tool für kleine bis mittlere Netzwerke.  
+**Backend:** Go (parallele Scans, saubere Reports)  
+**Frontend:** React.js (Dashboard, Visualisierung, Filter, Netzwerkgraph)
 
 ---
 
 ## Inhalt
 
-1. Zielsetzung
-2. Features
-3. Projektstruktur (Tree)
-4. Installation und Betrieb
-   - Backend
-   - Frontend
-   - Kopplung Scan-Log mit Web-UI
-5. Nutzung & Workflow
-6. Hinweise und Erweiterungen
-7. Lizenz & Kontakt
+- [Zielsetzung](#zielsetzung)
+- [Features](#features)
+- [Projektstruktur](#projektstruktur)
+- [Installation & Betrieb](#installation--betrieb)
+- [Workflow](#workflow)
+- [Hinweise & Erweiterungen](#hinweise--erweiterungen)
+- [Lizenz & Kontakt](#lizenz--kontakt)
 
 ---
 
-## 1. Zielsetzung
+## Zielsetzung
 
-NetRecon Ultra wurde entwickelt, um Netzwerke automatisiert und effizient zu scannen, Geräte und Dienste zu erkennen sowie die Ergebnisse nachvollziehbar und professionell aufzubereiten.  
-Das Tool richtet sich an Administratoren, IT-Security-Teams und technisch versierte Anwender, die Wert auf Übersicht, Nachvollziehbarkeit und Erweiterbarkeit legen.
-
----
-
-## 2. Features
-
-- Paralleler Netzwerkscan: ICMP, TCP-Portscan, Banner-Grabbing, Hostname- und Device-Type-Erkennung (Go, Goroutines)
-- Export als strukturierte JSON-Reports mit Zeitstempel (Scan-History)
-- Modulare Codebasis für Erweiterungen (OS-Fingerprinting, MAC/Vendor, IPv6, Web-API etc.)
-- React-Frontend mit Dashboard, Geräte-Tabelle, Filter, Netzwerkgraph (D3.js)
-- Reports werden unabhängig vom Frontend gespeichert und können flexibel ausgewertet werden
+NetRecon Ultra ist gebaut für Admins, Security-Teams und technische Anwender, die  
+ein Tool wollen, das *ohne Ballast* Netzwerke scannt, Geräte & Dienste erkennt und die Ergebnisse professionell aufbereitet.  
+Keine halbfertigen Scripts, sondern ein solides Werkzeug – modular, nachvollziehbar, erweiterbar.
 
 ---
 
-## 3. Projektstruktur
+## Features
 
+- **Paralleler Scan:** ICMP (Ping), TCP-Portscan, Banner-Grabbing, Hostname & Device-Type-Erkennung (alles asynchron in Go via Goroutines)
+- **JSON-Reports:** Klare, strukturierte Reports mit Zeitstempel, werden automatisch historisiert
+- **Modulare Architektur:** Erweiterbar um OS-Fingerprinting, MAC/Vendor, IPv6, Web-API etc.
+- **React-Frontend:** Dashboard, Geräte-Tabelle, Filter & Suche, Netzwerkgraph (D3.js), saubere Visualisierung
+- **Unabhängige Reports:** Speicherung getrennt vom Frontend, volle Flexibilität zur Auswertung
+
+---
+
+## Projektstruktur
+
+```text
 .
-├── cmd/ # CLI-Einstiegspunkt (main.go)
-├── core/ # Scan- und Analyselogik (Go, modular)
-├── data/ # OUI-Datenbank für MAC/Vendor-Erkennung
-├── logs/ # Alle Scan-Reports im JSON-Format (inkl. latest.json)
-├── models/ # Datentypen für Devices und Reports
-├── utils/ # Hilfsfunktionen (Logging, Netzwerktools, OUI-Parsing)
-├── web/ # React-Frontend: Dashboard, Visualisierung, Geräteansicht
+├── cmd/        # CLI-Startpunkt (main.go)
+├── core/       # Scan-/Analyse-Logik (Go, modular)
+├── data/       # OUI-Datenbank für MAC/Vendor-Erkennung
+├── logs/       # Alle Scan-Reports (JSON, History)
+├── models/     # Datenstrukturen für Devices, Reports
+├── utils/      # Hilfsfunktionen (Logging, Netzwerk, OUI-Parsing)
+├── web/        # React-Frontend: Dashboard, Visualisierung, Geräteansicht
 ├── go.mod, go.sum # Go-Abhängigkeiten
 ├── LICENSE
 └── README.md
 
+Installation & Betrieb
+Backend (Go)
 
----
-
-## 4. Installation und Betrieb
-
-### Backend (Go)
-
-```bash
 cd cmd
 go run main.go
 
-    Erkennt automatisch das lokale Subnetz (manuelle Anpassung möglich)
+    Erkennt automatisch das lokale Subnetz (optional konfigurierbar)
 
     Führt Host-Discovery, Portscan, Banner- und Geräteerkennung durch
 
     Speichert Reports als logs/scan_YYYY-MM-DD_HH-MM-SS.json
 
-    Setzt Go 1.22 oder neuer voraus
+    Voraussetzung: Go 1.22 oder neuer
 
 Frontend (React)
 
@@ -76,33 +71,35 @@ cd web
 npm install
 npm start
 
-    Startet ein modernes Dashboard auf http://localhost:3000
+    Startet das Dashboard auf http://localhost:3000
 
-    Setzt Node.js 18+ voraus
+    Voraussetzung: Node.js 18+
 
-Kopplung Scan-Log mit Web-UI
+Kopplung Scan-Log & Web-UI
 
-Damit das Dashboard Scan-Daten anzeigen kann,
-muss eine aktuelle Report-Datei als logs/latest.json ins Web-Verzeichnis kopiert werden.
+Damit das Frontend die Scan-Daten anzeigen kann, muss der Report als
+logs/latest.json im Web-Verzeichnis liegen.
 
-cp ../logs/scan_YYYY-MM-DD_HH-MM-SS.json logs/latest.json
+cp ../logs/scan_YYYY-MM-DD_HH-MM-SS.json web/logs/latest.json
 
-5. Nutzung & Workflow
+Workflow
 
-    Netzwerk-Scan mit Go-Backend starten (go run main.go im cmd/-Verzeichnis)
+    Netzwerkscan: Backend starten (go run main.go im cmd/-Verzeichnis)
 
-    Nach Abschluss gewünschten Report aus /logs/ auswählen
+    Report auswählen: Gewünschten Report aus /logs/ kopieren
 
-    Report als latest.json ins Web-Frontend kopieren (web/logs/latest.json)
+    Report verlinken:
+    cp logs/scan_TIMESTAMP.json web/logs/latest.json
 
-    React-Frontend starten (npm start im web/-Verzeichnis)
+    Frontend starten:
+    npm start im web/-Verzeichnis
 
-    Scanergebnisse im Browser auswerten, filtern und visualisieren
+    Auswertung: Scan im Browser analysieren, filtern, visualisieren
 
-6. Hinweise und Erweiterungen
+Hinweise & Erweiterungen
 
-    Die Kopplung von Backend und Frontend erfolgt derzeit nicht automatisiert (kein Live-Scan-Trigger über das Web-UI).
+    Die Kopplung Backend ↔ Frontend ist aktuell nicht automatisiert (kein Live-Scan/Trigger im Web-UI)
 
-    Das Projekt ist modular angelegt und kann um zusätzliche Features (z. B. OS-Fingerprinting, ARP/MAC, Web-API, Echtzeit-Visualisierung) erweitert werden.
+    Das Projekt ist modular: leicht erweiterbar um Features wie OS-Fingerprinting, ARP/MAC, Web-API, Echtzeit-Visualisierung etc.
 
-    Alle Scan-Reports bleiben als History erhalten, was langfristige Netzwerk-Analysen ermöglicht.
+    Reports werden als History aufbewahrt, für langfristige Netzwerk-Analysen
