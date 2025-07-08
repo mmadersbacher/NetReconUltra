@@ -1,92 +1,108 @@
 # NetRecon Ultra
 
-NetRecon Ultra ist ein modular aufgebautes Netzwerk-Discovery- und Analyse-Tool für kleine bis mittlere Netzwerke.  
-Backend in Go, Frontend in React. Ziel ist eine schnelle, nachvollziehbare Netzwerkerkennung und eine strukturierte, interaktive Auswertung über ein Webfrontend.
+NetRecon Ultra ist ein eigenständig entwickeltes Netzwerk-Discovery- und Analyse-Tool für kleine bis mittlere Netzwerke.  
+Das Projekt kombiniert ein leistungsstarkes Go-Backend für parallele Netzwerkerkennung mit einem modernen React-Frontend für die Auswertung und Visualisierung der Scanergebnisse.
 
-## Features
+---
 
-- Paralleler Netzwerkscan: ICMP, TCP-Portscan, Banner-, Hostname- und Device-Typ-Erkennung (Go)
-- JSON-Export und Scan-History: Jeder Scan als Report, automatisch mit Zeitstempel archiviert
-- Web-Frontend: Dashboard, Geräte-Tabelle, Netzwerkgraph (React, D3.js, Material UI)
-- Architektur vorbereitet für OS-Fingerprinting, MAC/Vendor, API, IPv6
+## Inhalt
 
-## Projektstruktur
+1. Zielsetzung
+2. Features
+3. Projektstruktur (Tree)
+4. Installation und Betrieb
+   - Backend
+   - Frontend
+   - Kopplung Scan-Log mit Web-UI
+5. Nutzung & Workflow
+6. Hinweise und Erweiterungen
+7. Lizenz & Kontakt
+
+---
+
+## 1. Zielsetzung
+
+NetRecon Ultra wurde entwickelt, um Netzwerke automatisiert und effizient zu scannen, Geräte und Dienste zu erkennen sowie die Ergebnisse nachvollziehbar und professionell aufzubereiten.  
+Das Tool richtet sich an Administratoren, IT-Security-Teams und technisch versierte Anwender, die Wert auf Übersicht, Nachvollziehbarkeit und Erweiterbarkeit legen.
+
+---
+
+## 2. Features
+
+- Paralleler Netzwerkscan: ICMP, TCP-Portscan, Banner-Grabbing, Hostname- und Device-Type-Erkennung (Go, Goroutines)
+- Export als strukturierte JSON-Reports mit Zeitstempel (Scan-History)
+- Modulare Codebasis für Erweiterungen (OS-Fingerprinting, MAC/Vendor, IPv6, Web-API etc.)
+- React-Frontend mit Dashboard, Geräte-Tabelle, Filter, Netzwerkgraph (D3.js)
+- Reports werden unabhängig vom Frontend gespeichert und können flexibel ausgewertet werden
+
+---
+
+## 3. Projektstruktur
 
 .
-├── cmd/
-│ └── main.go
-├── core/
-│ ├── bannergrab.go
-│ ├── devicetype.go
-│ ├── history.go
-│ ├── hostdiscovery.go
-│ ├── osdetect.go
-│ ├── pingsweep.go
-│ ├── portscan.go
-│ ├── ports.go
-│ ├── report.go
-│ └── scanner.go
-├── data/
-│ └── oui.txt
-├── go.mod
-├── go.sum
+├── cmd/ # CLI-Einstiegspunkt (main.go)
+├── core/ # Scan- und Analyselogik (Go, modular)
+├── data/ # OUI-Datenbank für MAC/Vendor-Erkennung
+├── logs/ # Alle Scan-Reports im JSON-Format (inkl. latest.json)
+├── models/ # Datentypen für Devices und Reports
+├── utils/ # Hilfsfunktionen (Logging, Netzwerktools, OUI-Parsing)
+├── web/ # React-Frontend: Dashboard, Visualisierung, Geräteansicht
+├── go.mod, go.sum # Go-Abhängigkeiten
 ├── LICENSE
-├── logs/
-│ ├── latest.json
-│ ├── scan_2025-07-08_00-14-58.json
-│ ├── scan_2025-07-08_01-15-09.json
-│ ├── scan_2025-07-08_01-18-26.json
-│ ├── scan_2025-07-08_01-21-26.json
-│ ├── scan_2025-07-08_01-51-07.json
-│ ├── scan_2025-07-08_02-09-32.json
-│ ├── scan_2025-07-08_02-21-44.json
-│ └── scan_2025-07-08_16-00-34.json
-├── models/
-│ └── types.go
-├── README.md
-├── utils/
-│ ├── log.go
-│ ├── network.go
-│ └── oui.go
-└── web/
-├── eslint.config.js
-├── index.html
-├── node_modules/
-├── package.json
-├── package-lock.json
-├── public/
-├── README.md
-├── src/
-└── vite.config.js
+└── README.md
 
 
-## Installation und Nutzung
+---
 
-Backend (Go):
+## 4. Installation und Betrieb
+
+### Backend (Go)
 
 ```bash
 cd cmd
 go run main.go
 
-Scan-Ergebnisse werden als JSON-Logs im Verzeichnis logs/ gespeichert.
+    Erkennt automatisch das lokale Subnetz (manuelle Anpassung möglich)
 
-Frontend (React):
+    Führt Host-Discovery, Portscan, Banner- und Geräteerkennung durch
+
+    Speichert Reports als logs/scan_YYYY-MM-DD_HH-MM-SS.json
+
+    Setzt Go 1.22 oder neuer voraus
+
+Frontend (React)
 
 cd web
 npm install
 npm start
 
-Das Web-Frontend ist standardmäßig erreichbar unter http://localhost:3000.
+    Startet ein modernes Dashboard auf http://localhost:3000
 
-Damit die Scandaten im Frontend angezeigt werden, muss eine aktuelle Scan-Datei als logs/latest.json im Web-Frontend liegen.
-Beispiel:
+    Setzt Node.js 18+ voraus
 
-cp ../logs/scan_2025-07-08_16-00-34.json logs/latest.json
+Kopplung Scan-Log mit Web-UI
 
-Hinweise
+Damit das Dashboard Scan-Daten anzeigen kann,
+muss eine aktuelle Report-Datei als logs/latest.json ins Web-Verzeichnis kopiert werden.
 
-    Das Frontend ist derzeit nicht direkt mit dem Backend gekoppelt (kein Live-Scan-Trigger).
+cp ../logs/scan_YYYY-MM-DD_HH-MM-SS.json logs/latest.json
 
-    Scan-Resultate müssen manuell als logs/latest.json ins Web-Frontend kopiert werden.
+5. Nutzung & Workflow
 
-    Die Architektur ist modular und für zukünftige Erweiterungen vorbereitet.
+    Netzwerk-Scan mit Go-Backend starten (go run main.go im cmd/-Verzeichnis)
+
+    Nach Abschluss gewünschten Report aus /logs/ auswählen
+
+    Report als latest.json ins Web-Frontend kopieren (web/logs/latest.json)
+
+    React-Frontend starten (npm start im web/-Verzeichnis)
+
+    Scanergebnisse im Browser auswerten, filtern und visualisieren
+
+6. Hinweise und Erweiterungen
+
+    Die Kopplung von Backend und Frontend erfolgt derzeit nicht automatisiert (kein Live-Scan-Trigger über das Web-UI).
+
+    Das Projekt ist modular angelegt und kann um zusätzliche Features (z. B. OS-Fingerprinting, ARP/MAC, Web-API, Echtzeit-Visualisierung) erweitert werden.
+
+    Alle Scan-Reports bleiben als History erhalten, was langfristige Netzwerk-Analysen ermöglicht.
