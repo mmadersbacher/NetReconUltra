@@ -20,9 +20,6 @@ Im Gegensatz zu überladenen Enterprise-Lösungen kombiniert NetRecon Ultra Perf
 * **Modulare Architektur**
   Der Core ist in Go geschrieben, vollständig erweiterbar um OS-Fingerprinting, ARP/MAC-Vendor-Erkennung, Web-API, IPv6-Support usw.
 
-* **Kein Bullshit. Keine Cloud. Kein Lock-In.**
-  Volle Kontrolle über alle Daten – lokal, verständlich, transparent.
-
 ---
 
 ## 🧰 Tech-Stack
