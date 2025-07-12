@@ -135,4 +135,4 @@ Siehe [LICENSE](./LICENSE) für Details.
 ---
 
 > Fragen, Ideen oder Feedback?
-> [Issue eröffnen](https://github.com/DEIN_USERNAME/NetReconUltra/issues) oder forke das Projekt.
+> [Issue eröffnen](https://github.com/DEIN_USERNAME/NetReconUltra/issues) oder forke das Projekt!
