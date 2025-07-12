@@ -2,7 +2,7 @@
 
 **NetRecon Ultra** ist ein hochmodernes, von Grund auf selbst entwickeltes Netzwerk-Discovery- und Analyse-Tool. Es richtet sich an Systemadministratoren, Sicherheitsteams und IT-Profis, die kompromisslose Übersicht und Kontrolle über ihre Netzwerke suchen – ohne Cloud-Abhängigkeiten, ohne Telemetrie, ohne überflüssige Features.
 
-Im Gegensatz zu überladenen Enterprise-Lösungen kombiniert NetRecon Ultra Performance (Go, Goroutines) mit maximaler Transparenz und einem vollständig lokal laufenden Web-Dashboard. Alle Scans werden sauber dokumentiert, historisiert und lassen sich jederzeit analysieren.
+Im Gegensatz zu überladenen Enterprise-Lösungen kombiniert NetRecon Ultra Performance (Go, Goroutines) mit maximaler Transparenz und einem vollständig lokal laufenden Web-Dashboard. Alle Scans werden sauber dokumentiert, historisiert und lassen sich jederzeit analysieren
 
 ---
 
