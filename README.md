@@ -37,14 +37,15 @@ visuell, modern, modular.
 |-------------------------------------|--------------------------|
 | ![Dashboard Screenshot](./web-frontend/public/assets/screenshot-dashboard.png)<br><sub>Zeigt Topologie-Graph, animierten Hintergrund, StatsChart, ThemeSwitch oben rechts</sub> | ![Devices Screenshot](./web-frontend/public/assets/screenshot-devices.png)<br><sub>Geräte-Tabelle, Icons, offene Ports farbig hervorgehoben</sub> |
 
-*Die Screenshots sind Platzhalter und können durch eigene Bilder ersetzt werden.*
+*Screenshots sind Platzhalter und können durch eigene Bilder ersetzt werden.*
 
 ---
 
 ## Installation (Backend & Frontend)
 
 ### Backend (Go-Scanner)
-```sh
+
+```bash
 git clone https://github.com/mmadersbacher/NetReconUltra.git
 cd NetReconUltra
 go mod tidy
@@ -115,25 +116,15 @@ Reporting, Datenschutz & Logs
 Tech Stack
 
 Backend:
-
-    Go (>=1.22)
-
-    Standard Library
+Go (>=1.22), Standard Library
 
 Frontend:
-
-    React 18, TypeScript, Vite
-
-    Framer Motion (Animationen)
-
-    Lucide Icons
-
-    Chart.js (Statistiken)
-
-    Custom Canvas (Hero-Background)
-
-    Modernes CSS, Neon-Theme, ThemeSwitch
-
+React 18, TypeScript, Vite
+Framer Motion (Animationen)
+Lucide Icons
+Chart.js (Statistiken)
+Custom Canvas (Hero-Background)
+Modernes CSS, Neon-Theme, ThemeSwitch
 Demo & Live-Preview
 
 Live-Frontend (Demo auf GitHub Pages):
@@ -145,6 +136,5 @@ MIT License – siehe LICENSE
 Created by Mario Madersbacher, 2025
 Kontakt & Feedback
 
-    Fragen, Bugreports, Featurewünsche: GitHub Issues
-
-    Portfolio & Kontakt: github.com/mmadersbacher
+Fragen, Bugreports, Featurewünsche: GitHub Issues
+Portfolio & Kontakt: github.com/mmadersbacher
