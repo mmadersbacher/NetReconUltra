@@ -1,99 +1,150 @@
-# NetReconUltra
+# <img src="./web-frontend/public/assets/logo.svg" height="36" alt="NetReconUltra Logo" align="left"/> NetReconUltra
 
 [![Go Version](https://img.shields.io/badge/go-%3E=1.22-blue?logo=go)](https://golang.org)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
 [![License](https://img.shields.io/github/license/mmadersbacher/NetReconUltra)](LICENSE)
 [![Issues](https://img.shields.io/github/issues/mmadersbacher/NetReconUltra?color=blue)](https://github.com/mmadersbacher/NetReconUltra/issues)
+[![Frontend Demo](https://img.shields.io/badge/frontend-live-blue?logo=react)](https://mmadersbacher.github.io/NetReconUltra/)
 
-**NetReconUltra** ist ein hochperformanter, modularer Netzwerk-Scanner in Go.  
-Entwickelt für fortgeschrittene Netzwerkerkennung, Geräteidentifikation, Service-Fingerprinting und exaktes Reporting im Business- und Security-Kontext.
+<br/>
+
+**NetReconUltra** ist ein hochperformanter, modularer Netzwerk-Scanner und Visualizer auf ELITE-Niveau.  
+Entwickelt für fortgeschrittene Netzwerkerkennung, Geräte- und Dienstanalyse, Fingerprinting und exaktes Reporting –  
+visuell, modern, modular.
+
+**Backend:** Go – ultraschneller Scanner, cleane JSON-Reports  
+**Frontend:** React + TypeScript – State-of-the-Art UI, animiertes Dashboard
 
 ---
 
 ## Features
 
-- Automatische Erkennung von aktivem Interface und Subnetz
-- Paralleler Ping- und Portscan mit minimaler Latenz
-- Service-Banner-Grabbing (HTTP, FTP, Drucker, uvm.)
-- Gerätetyp- und OS-Identifikation (Banner, Ports, Hostname, Fingerprinting)
-- Strukturierte JSON-Reports mit Zeitstempel und History/Delta-Support
-- Strikte Modularisierung: kein File >200 Zeilen, klar getrennte Komponenten
-- Keine sensiblen Daten im Repo: Logs und Reports bleiben ausschließlich lokal
+- Automatische Netzwerkerkennung – findet und scannt alle aktiven Subnetze
+- Paralleler Ping-/Portscan – blitzschnell, hochskalierbar
+- Service-Banner-Grabbing – erkennt laufende Dienste (HTTP/S, FTP, Drucker, SMB, etc.)
+- Geräte- und OS-Erkennung – per TTL, Banner, Hostname, Port-Profiling
+- Topologische Visualisierung – Übersicht über alle Geräte & Verbindungen (Frontend)
+- Live-Statistiken & Dashboard – Offene Ports, Gerätetypen, Services
+- History- und Delta-Reports – Vergleich von Scans über Zeit (in Planung)
+- Keine sensiblen Daten im Repo: Logs/Reports bleiben ausschließlich lokal
+- Voll responsives Elite-UI – ThemeSwitch (Dark/Light), Neon-Canvas, Animationen
 
 ---
 
-## Quickstart
+## Screenshots
 
+| Dashboard (Topologie + Statistiken) | Geräteübersicht (Tabelle) |
+|-------------------------------------|--------------------------|
+| ![Dashboard Screenshot](./web-frontend/public/assets/screenshot-dashboard.png)<br><sub>Zeigt Topologie-Graph, animierten Hintergrund, StatsChart, ThemeSwitch oben rechts</sub> | ![Devices Screenshot](./web-frontend/public/assets/screenshot-devices.png)<br><sub>Geräte-Tabelle, Icons, offene Ports farbig hervorgehoben</sub> |
+
+*Die Screenshots sind Platzhalter und können durch eigene Bilder ersetzt werden.*
+
+---
+
+## Installation (Backend & Frontend)
+
+### Backend (Go-Scanner)
 ```sh
 git clone https://github.com/mmadersbacher/NetReconUltra.git
 cd NetReconUltra
 go mod tidy
-
-# Build (optional)
 go build -o netreconultra ./cmd
 
-# Direkt ausführen (automatische Subnetzerkennung)
-sudo go run ./cmd scan
+Frontend (Visualizer / Dashboard)
 
-# Manuelles Interface/Subnetz
-sudo go run ./cmd scan wlan0 192.168.8.0
+cd web-frontend
+npm install
+npm run dev
 
-Reports werden automatisch in logs/ mit Zeitstempel exportiert.
-Der aktuellste Report ist immer unter logs/latest.json verfügbar.
-Beispielausgabe
+    Die Web-Oberfläche läuft dann auf http://localhost:5173
 
-Starte Netzwerk-Discovery...
-Verwende Subnetz: 192.168.8.0/24
-Host online (Ping): 192.168.8.133
-Scan-Ergebnis:
-IP              Hostname        DeviceType     Ports          Banners                   FoundBy
-192.168.8.133   HPC38E23        Drucker        [80 443 8080]  {80:HTTP/1.1 ...}         [ping portscan]
-192.168.8.123   DESKTOP-G2NCQDT Windows PC     [139 445]      {}                        [ping portscan]
-...
-Report gespeichert: logs/scan_2025-07-07_23-31-47.json
+    Die Scan-Reports müssen als /public/logs/latest.json vorliegen (siehe Abschnitt "Reporting").
 
-Ordnerstruktur
+Benutzung / Quickstart
+Netzwerkscan starten
+
+# Automatische Interface-/Subnetz-Erkennung:
+sudo ./netreconultra scan
+
+# Oder manuell, z.B.:
+sudo ./netreconultra scan wlan0 192.168.8.0
+
+    Der aktuelle Report liegt immer als logs/latest.json
+
+    Alte Reports werden mit Zeitstempel archiviert: logs/scan_YYYY-MM-DD_HH-MM-SS.json
+
+Frontend starten & Scan visualisieren
+
+    Frontend starten (npm run dev)
+
+    Gewünschten Scan-Report als web-frontend/public/logs/latest.json speichern
+
+    Website neu laden – du siehst die komplette Netzwerk-Visualisierung
+
+Projektstruktur (Kurzüberblick)
 
 NetReconUltra/
-├── cmd/
-│   └── main.go
-├── core/
-│   ├── bannergrab.go
-│   ├── history.go
-│   ├── hostdiscovery.go
-│   ├── osdetect.go
-│   ├── pingsweep.go
-│   ├── portscan.go
-│   ├── ports.go
-│   ├── report.go
-│   └── scanner.go
-├── data/
-│   └── oui.txt
-├── logs/
-│   └── .gitkeep
-├── models/
-│   └── types.go
-├── utils/
-│   ├── export.go
-│   ├── log.go
-│   └── network.go
+├── cmd/        # Go-CLI-Entrypoint
+├── core/       # Scan-/Analyse-Module (Go)
+├── models/     # Typen, Datenstrukturen
+├── data/       # MAC/OUI Datenbank
+├── logs/       # Alle Reports (JSON, .gitignored)
+├── web-frontend/
+│   ├── public/
+│   │   ├── assets/   # Logos, Screenshots
+│   │   └── logs/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── layout/
+│   │   └── App.tsx etc.
+│   ├── index.css
+│   ├── package.json
+│   └── ...
+├── go.mod / go.sum
 ├── README.md
-├── .gitignore
-├── go.mod
-├── go.sum
+└── .gitignore
 
-Reporting, Logs und Datenschutz
+Reporting, Datenschutz & Logs
 
-    Logs und Reports werden ausschließlich lokal im Verzeichnis logs/ gespeichert.
+    Alle Reports werden ausschließlich lokal gespeichert (logs/)
 
-    Der Ordner logs/ ist nicht Teil des GitHub-Repos (siehe .gitignore).
+    Keine gescannten Daten oder privaten Infos verlassen den Rechner
 
-    Keine gescannten Daten oder privaten Netzwerkinfos verlassen den Rechner.
+    Der Ordner logs/ ist im Git ignoriert
 
-Lizenz
+Tech Stack
 
-MIT – siehe LICENSE.
-Kontakt / Autor
+Backend:
 
-Mario Madersbacher
-GitHub Profil
+    Go (>=1.22)
+
+    Standard Library
+
+Frontend:
+
+    React 18, TypeScript, Vite
+
+    Framer Motion (Animationen)
+
+    Lucide Icons
+
+    Chart.js (Statistiken)
+
+    Custom Canvas (Hero-Background)
+
+    Modernes CSS, Neon-Theme, ThemeSwitch
+
+Demo & Live-Preview
+
+Live-Frontend (Demo auf GitHub Pages):
+https://mmadersbacher.github.io/NetReconUltra/
+(Demo zeigt Beispieldaten – keine Live-Scans im Browser!)
+Lizenz & Credits
+
+MIT License – siehe LICENSE
+Created by Mario Madersbacher, 2025
+Kontakt & Feedback
+
+    Fragen, Bugreports, Featurewünsche: GitHub Issues
+
+    Portfolio & Kontakt: github.com/mmadersbacher
