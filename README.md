@@ -36,7 +36,6 @@ Frontend: React + TypeScript – State-of-the-Art UI, animiertes Dashboard
 |-------------------------------------|--------------------------|
 | ![Dashboard Screenshot](./web-frontend/public/assets/screenshot-dashboard.png)<br><sub>Zeigt Topologie-Graph, animierten Hintergrund, StatsChart, ThemeSwitch oben rechts</sub> | ![Devices Screenshot](./web-frontend/public/assets/screenshot-devices.png)<br><sub>Geräte-Tabelle, Icons, offene Ports farbig hervorgehoben</sub> |
 
-*Screenshots sind Platzhalter und können durch eigene Bilder ersetzt werden.*
 
 ---
 
