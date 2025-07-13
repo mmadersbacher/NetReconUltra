@@ -34,7 +34,7 @@ Frontend: React + TypeScript – State-of-the-Art UI, animiertes Dashboard
 
 | Dashboard (Topologie + Statistiken) | Geräteübersicht (Tabelle) |
 |-------------------------------------|--------------------------|
-| ![Dashboard Screenshot](./web-frontend/public/assets/screenshot-dashboard.png)<br><sub>Zeigt Topologie-Graph, animierten Hintergrund, StatsChart, ThemeSwitch oben rechts</sub> | ![Devices Screenshot](./web-frontend/public/assets/screenshot-devices.png)<br><sub>Geräte-Tabelle, Icons, offene Ports farbig hervorgehoben</sub> |
+| ![Dashboard Screenshot](/web-frontend/public/assets/screenshot-dashboard.png)<br><sub>Zeigt Topologie-Graph, animierten Hintergrund, StatsChart, ThemeSwitch oben rechts</sub> | ![Devices Screenshot](./web-frontend/public/assets/screenshot-devices.png)<br><sub>Geräte-Tabelle, Icons, offene Ports farbig hervorgehoben</sub> |
 
 
 ---
