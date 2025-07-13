@@ -1,0 +1,39 @@
+# Go build outputs
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Test & coverage
+coverage.*
+*.coverprofile
+*.cov
+profile.cov
+
+# Logs, Reports, Exporte
+logs/
+*.log
+*.json
+
+# Environment/config
+.env
+go.work
+go.work.sum
+
+# Dependency manager
+# vendor/
+
+# Editor/IDE junk
+.idea/
+.vscode/
+.DS_Store
+
+# Python/sonstige Reste (falls du mal Skripte im Projekt hast)
+__pycache__/
+*.pyc
+
+# System Trash
+Thumbs.db

@@ -1,0 +1,420 @@
+{
+  "scanDate": "2025-07-13 21:36:42",
+  "devices": [
+    {
+      "IP": "192.168.8.1",
+      "MAC": "",
+      "Vendor": "Unbekannt",
+      "Hostname": "_gateway",
+      "Ports": [
+        {
+          "Port": 143,
+          "Open": false,
+          "Service": "IMAP",
+          "Duration": 43028323,
+          "Banner": ""
+        },
+        {
+          "Port": 8080,
+          "Open": false,
+          "Service": "HTTP-Alt",
+          "Duration": 42993843,
+          "Banner": ""
+        },
+        {
+          "Port": 21,
+          "Open": false,
+          "Service": "FTP",
+          "Duration": 43276008,
+          "Banner": ""
+        },
+        {
+          "Port": 445,
+          "Open": false,
+          "Service": "SMB",
+          "Duration": 43134079,
+          "Banner": ""
+        },
+        {
+          "Port": 80,
+          "Open": true,
+          "Service": "HTTP",
+          "Duration": 43840355,
+          "Banner": ""
+        },
+        {
+          "Port": 139,
+          "Open": false,
+          "Service": "NetBIOS",
+          "Duration": 43097174,
+          "Banner": ""
+        },
+        {
+          "Port": 110,
+          "Open": false,
+          "Service": "POP3",
+          "Duration": 43200142,
+          "Banner": ""
+        },
+        {
+          "Port": 25,
+          "Open": false,
+          "Service": "SMTP",
+          "Duration": 43622348,
+          "Banner": ""
+        },
+        {
+          "Port": 23,
+          "Open": false,
+          "Service": "Telnet",
+          "Duration": 44041998,
+          "Banner": ""
+        },
+        {
+          "Port": 22,
+          "Open": false,
+          "Service": "SSH",
+          "Duration": 44187539,
+          "Banner": ""
+        },
+        {
+          "Port": 587,
+          "Open": false,
+          "Service": "SMTP-SSL",
+          "Duration": 43560624,
+          "Banner": ""
+        },
+        {
+          "Port": 443,
+          "Open": true,
+          "Service": "HTTPS",
+          "Duration": 44170150,
+          "Banner": ""
+        }
+      ],
+      "Banners": {
+        "443": "HTTP/1.1 404",
+        "80": "HTTP/1.1 404"
+      },
+      "FoundBy": [
+        "ping",
+        "portscan"
+      ],
+      "DeviceType": "Linux/Unix Webserver"
+    },
+    {
+      "IP": "192.168.8.139",
+      "MAC": "",
+      "Vendor": "Unbekannt",
+      "Hostname": "kali",
+      "Ports": [
+        {
+          "Port": 8080,
+          "Open": false,
+          "Service": "HTTP-Alt",
+          "Duration": 356333,
+          "Banner": ""
+        },
+        {
+          "Port": 21,
+          "Open": false,
+          "Service": "FTP",
+          "Duration": 301633,
+          "Banner": ""
+        },
+        {
+          "Port": 25,
+          "Open": false,
+          "Service": "SMTP",
+          "Duration": 180312,
+          "Banner": ""
+        },
+        {
+          "Port": 110,
+          "Open": false,
+          "Service": "POP3",
+          "Duration": 182483,
+          "Banner": ""
+        },
+        {
+          "Port": 23,
+          "Open": false,
+          "Service": "Telnet",
+          "Duration": 438006,
+          "Banner": ""
+        },
+        {
+          "Port": 443,
+          "Open": false,
+          "Service": "HTTPS",
+          "Duration": 188822,
+          "Banner": ""
+        },
+        {
+          "Port": 139,
+          "Open": false,
+          "Service": "NetBIOS",
+          "Duration": 225669,
+          "Banner": ""
+        },
+        {
+          "Port": 80,
+          "Open": true,
+          "Service": "HTTP",
+          "Duration": 237960,
+          "Banner": ""
+        },
+        {
+          "Port": 22,
+          "Open": false,
+          "Service": "SSH",
+          "Duration": 329423,
+          "Banner": ""
+        },
+        {
+          "Port": 143,
+          "Open": false,
+          "Service": "IMAP",
+          "Duration": 187724,
+          "Banner": ""
+        },
+        {
+          "Port": 445,
+          "Open": false,
+          "Service": "SMB",
+          "Duration": 165924,
+          "Banner": ""
+        },
+        {
+          "Port": 587,
+          "Open": false,
+          "Service": "SMTP-SSL",
+          "Duration": 261203,
+          "Banner": ""
+        }
+      ],
+      "Banners": {
+        "80": "Server: Apache/2.4.63 (Debian)"
+      },
+      "FoundBy": [
+        "ping",
+        "portscan"
+      ],
+      "DeviceType": "Webserver (Apache)"
+    },
+    {
+      "IP": "192.168.8.123",
+      "MAC": "74:56:3c:6e:a7:c6",
+      "Vendor": "Unbekannt",
+      "Hostname": "DESKTOP-G2NCQDT",
+      "Ports": [
+        {
+          "Port": 139,
+          "Open": true,
+          "Service": "NetBIOS",
+          "Duration": 43441939,
+          "Banner": ""
+        },
+        {
+          "Port": 445,
+          "Open": true,
+          "Service": "SMB",
+          "Duration": 43840397,
+          "Banner": ""
+        },
+        {
+          "Port": 143,
+          "Open": false,
+          "Service": "IMAP",
+          "Duration": 500248373,
+          "Banner": ""
+        },
+        {
+          "Port": 21,
+          "Open": false,
+          "Service": "FTP",
+          "Duration": 500098273,
+          "Banner": ""
+        },
+        {
+          "Port": 443,
+          "Open": false,
+          "Service": "HTTPS",
+          "Duration": 500149353,
+          "Banner": ""
+        },
+        {
+          "Port": 22,
+          "Open": false,
+          "Service": "SSH",
+          "Duration": 500060354,
+          "Banner": ""
+        },
+        {
+          "Port": 80,
+          "Open": false,
+          "Service": "HTTP",
+          "Duration": 500091211,
+          "Banner": ""
+        },
+        {
+          "Port": 110,
+          "Open": false,
+          "Service": "POP3",
+          "Duration": 500066287,
+          "Banner": ""
+        },
+        {
+          "Port": 23,
+          "Open": false,
+          "Service": "Telnet",
+          "Duration": 500076573,
+          "Banner": ""
+        },
+        {
+          "Port": 8080,
+          "Open": false,
+          "Service": "HTTP-Alt",
+          "Duration": 500664958,
+          "Banner": ""
+        },
+        {
+          "Port": 25,
+          "Open": false,
+          "Service": "SMTP",
+          "Duration": 500803598,
+          "Banner": ""
+        },
+        {
+          "Port": 587,
+          "Open": false,
+          "Service": "SMTP-SSL",
+          "Duration": 500867267,
+          "Banner": ""
+        }
+      ],
+      "Banners": {},
+      "FoundBy": [
+        "ping",
+        "portscan",
+        "arp"
+      ],
+      "DeviceType": "Windows/SMB Gerät"
+    },
+    {
+      "IP": "192.168.8.133",
+      "MAC": "84:69:93:c3:8e:23",
+      "Vendor": "Unbekannt",
+      "Hostname": "HPC38E23",
+      "Ports": [
+        {
+          "Port": 21,
+          "Open": false,
+          "Service": "FTP",
+          "Duration": 54742699,
+          "Banner": ""
+        },
+        {
+          "Port": 25,
+          "Open": false,
+          "Service": "SMTP",
+          "Duration": 55185590,
+          "Banner": ""
+        },
+        {
+          "Port": 445,
+          "Open": false,
+          "Service": "SMB",
+          "Duration": 55022756,
+          "Banner": ""
+        },
+        {
+          "Port": 587,
+          "Open": false,
+          "Service": "SMTP-SSL",
+          "Duration": 54916103,
+          "Banner": ""
+        },
+        {
+          "Port": 143,
+          "Open": false,
+          "Service": "IMAP",
+          "Duration": 55246559,
+          "Banner": ""
+        },
+        {
+          "Port": 139,
+          "Open": false,
+          "Service": "NetBIOS",
+          "Duration": 55039377,
+          "Banner": ""
+        },
+        {
+          "Port": 80,
+          "Open": true,
+          "Service": "HTTP",
+          "Duration": 55102667,
+          "Banner": ""
+        },
+        {
+          "Port": 443,
+          "Open": true,
+          "Service": "HTTPS",
+          "Duration": 55243515,
+          "Banner": ""
+        },
+        {
+          "Port": 110,
+          "Open": false,
+          "Service": "POP3",
+          "Duration": 57755184,
+          "Banner": ""
+        },
+        {
+          "Port": 8080,
+          "Open": true,
+          "Service": "HTTP-Alt",
+          "Duration": 57693505,
+          "Banner": ""
+        },
+        {
+          "Port": 23,
+          "Open": false,
+          "Service": "Telnet",
+          "Duration": 57638685,
+          "Banner": ""
+        },
+        {
+          "Port": 22,
+          "Open": false,
+          "Service": "SSH",
+          "Duration": 57788783,
+          "Banner": ""
+        }
+      ],
+      "Banners": {
+        "443": "Server: HP HTTP Server; HP DeskJet 2700 series - 26K68B; Serial Number: CN277D838C; Built:Wed Jun 12, 2024 09:51:15AM {TCP1FN2424DR}",
+        "80": "Server: HP HTTP Server; HP DeskJet 2700 series - 26K68B; Serial Number: CN277D838C; Built:Wed Jun 12, 2024 09:51:15AM {TCP1FN2424DR}",
+        "8080": "Server: HP HTTP Server; HP DeskJet 2700 series - 26K68B; Serial Number: CN277D838C; Built:Wed Jun 12, 2024 09:51:15AM {TCP1FN2424DR}"
+      },
+      "FoundBy": [
+        "ping",
+        "portscan",
+        "arp"
+      ],
+      "DeviceType": "Drucker Gerät"
+    },
+    {
+      "IP": "192.168.8.100",
+      "MAC": "64:1c:b0:af:65:e2",
+      "Vendor": "Unbekannt",
+      "Hostname": "Samsung",
+      "Ports": null,
+      "Banners": {},
+      "FoundBy": [
+        "arp"
+      ],
+      "DeviceType": "Unbekannt"
+    }
+  ]
+}
