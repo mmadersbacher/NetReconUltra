@@ -1,4 +1,4 @@
-# <img src="./web-frontend/public/assets/logo.svg" height="36" alt="NetReconUltra Logo" align="left"/> NetReconUltra
+# NetReconUltra
 
 [![Go Version](https://img.shields.io/badge/go-%3E=1.22-blue?logo=go)](https://golang.org)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
@@ -6,14 +6,12 @@
 [![Issues](https://img.shields.io/github/issues/mmadersbacher/NetReconUltra?color=blue)](https://github.com/mmadersbacher/NetReconUltra/issues)
 [![Frontend Demo](https://img.shields.io/badge/frontend-live-blue?logo=react)](https://mmadersbacher.github.io/NetReconUltra/)
 
-<br/>
-
-**NetReconUltra** ist ein hochperformanter, modularer Netzwerk-Scanner und Visualizer auf ELITE-Niveau.  
+NetReconUltra ist ein hochperformanter, modularer Netzwerk-Scanner und Visualizer auf ELITE-Niveau.  
 Entwickelt für fortgeschrittene Netzwerkerkennung, Geräte- und Dienstanalyse, Fingerprinting und exaktes Reporting –  
 visuell, modern, modular.
 
-**Backend:** Go – ultraschneller Scanner, cleane JSON-Reports  
-**Frontend:** React + TypeScript – State-of-the-Art UI, animiertes Dashboard
+Backend: Go – ultraschneller Scanner, cleane JSON-Reports  
+Frontend: React + TypeScript – State-of-the-Art UI, animiertes Dashboard
 
 ---
 
@@ -136,5 +134,8 @@ MIT License – siehe LICENSE
 Created by Mario Madersbacher, 2025
 Kontakt & Feedback
 
-Fragen, Bugreports, Featurewünsche: GitHub Issues
-Portfolio & Kontakt: github.com/mmadersbacher
+Fragen, Bugreports, Featurewünsche:
+https://github.com/mmadersbacher/NetReconUltra/issues
+
+Portfolio & Kontakt:
+https://github.com/mmadersbacher
