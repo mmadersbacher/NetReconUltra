@@ -1,3 +1,4 @@
+
 # NetReconUltra
 
 [![Go Version](https://img.shields.io/badge/go-%3E=1.22-blue?logo=go)](https://golang.org)
@@ -48,40 +49,47 @@ git clone https://github.com/mmadersbacher/NetReconUltra.git
 cd NetReconUltra
 go mod tidy
 go build -o netreconultra ./cmd
+```
 
-Frontend (Visualizer / Dashboard)
+### Frontend (Visualizer / Dashboard)
 
+```bash
 cd web-frontend
 npm install
 npm run dev
+```
 
-    Die Web-Oberfläche läuft dann auf http://localhost:5173
+- Die Web-Oberfläche läuft dann auf http://localhost:5173  
+- Die Scan-Reports müssen als `/public/logs/latest.json` vorliegen (siehe Abschnitt "Reporting").
 
-    Die Scan-Reports müssen als /public/logs/latest.json vorliegen (siehe Abschnitt "Reporting").
+---
 
-Benutzung / Quickstart
-Netzwerkscan starten
+## Benutzung / Quickstart
 
+### Netzwerkscan starten
+
+```bash
 # Automatische Interface-/Subnetz-Erkennung:
 sudo ./netreconultra scan
 
 # Oder manuell, z.B.:
 sudo ./netreconultra scan wlan0 192.168.8.0
+```
 
-    Der aktuelle Report liegt immer als logs/latest.json
+- Der aktuelle Report liegt immer als `logs/latest.json`
+- Alte Reports werden mit Zeitstempel archiviert: `logs/scan_YYYY-MM-DD_HH-MM-SS.json`
 
-    Alte Reports werden mit Zeitstempel archiviert: logs/scan_YYYY-MM-DD_HH-MM-SS.json
+### Frontend starten & Scan visualisieren
 
-Frontend starten & Scan visualisieren
+1. Frontend starten (`npm run dev`)
+2. Gewünschten Scan-Report als `web-frontend/public/logs/latest.json` speichern
+3. Website neu laden – du siehst die komplette Netzwerk-Visualisierung
 
-    Frontend starten (npm run dev)
+---
 
-    Gewünschten Scan-Report als web-frontend/public/logs/latest.json speichern
+## Projektstruktur (Kurzüberblick)
 
-    Website neu laden – du siehst die komplette Netzwerk-Visualisierung
-
-Projektstruktur (Kurzüberblick)
-
+```text
 NetReconUltra/
 ├── cmd/        # Go-CLI-Entrypoint
 ├── core/       # Scan-/Analyse-Module (Go)
@@ -102,40 +110,56 @@ NetReconUltra/
 ├── go.mod / go.sum
 ├── README.md
 └── .gitignore
+```
 
-Reporting, Datenschutz & Logs
+---
 
-    Alle Reports werden ausschließlich lokal gespeichert (logs/)
+## Reporting, Datenschutz & Logs
 
-    Keine gescannten Daten oder privaten Infos verlassen den Rechner
+- Alle Reports werden ausschließlich lokal gespeichert (`logs/`)
+- Keine gescannten Daten oder privaten Infos verlassen den Rechner
+- Der Ordner `logs/` ist im Git ignoriert
 
-    Der Ordner logs/ ist im Git ignoriert
+---
 
-Tech Stack
+## Tech Stack
 
-Backend:
+Backend:  
 Go (>=1.22), Standard Library
 
-Frontend:
-React 18, TypeScript, Vite
-Framer Motion (Animationen)
-Lucide Icons
-Chart.js (Statistiken)
-Custom Canvas (Hero-Background)
+Frontend:  
+React 18, TypeScript, Vite  
+Framer Motion (Animationen)  
+Lucide Icons  
+Chart.js (Statistiken)  
+Custom Canvas (Hero-Background)  
 Modernes CSS, Neon-Theme, ThemeSwitch
-Demo & Live-Preview
 
-Live-Frontend (Demo auf GitHub Pages):
-https://mmadersbacher.github.io/NetReconUltra/
+---
+
+## Demo & Live-Preview
+
+Live-Frontend (Demo auf GitHub Pages):  
+https://mmadersbacher.github.io/NetReconUltra/  
 (Demo zeigt Beispieldaten – keine Live-Scans im Browser!)
-Lizenz & Credits
 
-MIT License – siehe LICENSE
+---
+
+## Lizenz & Credits
+
+MIT License – siehe [LICENSE](LICENSE)  
 Created by Mario Madersbacher, 2025
-Kontakt & Feedback
 
-Fragen, Bugreports, Featurewünsche:
+---
+
+## Kontakt & Feedback
+
+Fragen, Bugreports, Featurewünsche:  
 https://github.com/mmadersbacher/NetReconUltra/issues
 
-Portfolio & Kontakt:
+Portfolio & Kontakt:  
 https://github.com/mmadersbacher
+
+---
+
+Dieses Projekt setzt Maßstäbe für technische Qualität und modernes Design in Open Source-Netzwerktools.
